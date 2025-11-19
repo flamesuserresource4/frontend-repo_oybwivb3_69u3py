@@ -1,11 +1,23 @@
 import Spline from '@splinetool/react-spline'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export default function Hero() {
+  const [showSpline, setShowSpline] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowSpline(true), 300) // defer heavy load a bit
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <section id="home" className="relative min-h-[88vh] pt-28">
       <div className="absolute inset-0">
-        <Spline scene="https://prod.spline.design/S4k-6fqjuV5AuVZe/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        {showSpline ? (
+          <Spline scene="https://prod.spline.design/S4k-6fqjuV5AuVZe/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        ) : (
+          <div className="w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,115,0,0.12),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.06),transparent_40%)]" />
+        )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
       </div>
 
@@ -35,8 +47,8 @@ export default function Hero() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="mt-8 flex flex-wrap items-center gap-3"
             >
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-xl bg-orange-500 text-black font-semibold px-5 py-3 hover:bg-orange-400 transition">
-                Start a project
+              <a href="#builder" className="inline-flex items-center gap-2 rounded-xl bg-orange-500 text-black font-semibold px-5 py-3 hover:bg-orange-400 transition">
+                Build your package
               </a>
               <a href="#services" className="inline-flex items-center gap-2 rounded-xl bg-white/5 text-white px-5 py-3 hover:bg-white/10 transition">
                 Explore services
